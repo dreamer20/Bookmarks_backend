@@ -102,9 +102,10 @@ def test_profile(client, auth):
     assert data['username'] == 'test'
 
 
+@pytest.mark.add
 def test_add_bookmark(client, auth, mock_response):
     """ Should add new bookmark to the user's bookmark list """
-    bookmark = {'url': 'http://testurl.com'}
+    bookmark = {'url': 'http://testurl.com', 'tags': 'tag1,tag2'}
     auth.login()
     response = client.post(
         '/bookmarks/add',
@@ -114,6 +115,7 @@ def test_add_bookmark(client, auth, mock_response):
     assert response.status_code == 200, response.text
     data = response.json()
     assert data['title'] == 'Vite App'
+    assert data['tags'] == 'tag1,tag2'
 
 
 def test_get_bookmarks(client, auth):

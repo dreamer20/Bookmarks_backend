@@ -7,6 +7,7 @@ class BookmarkBase(BaseModel):
     title: Union[str, None] = None
     icon_url: Union[str, None] = None
     url: str
+    tags: Union[str, None] = None
 
 
 class BookmarkCreate(BookmarkBase):

@@ -20,6 +20,7 @@ class Bookmark(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False, index=True)
     url = Column(String, nullable=False, index=True)
+    tags = Column(String, index=True)
     icon_url = Column(String)
     owner_id = Column(Integer, ForeignKey('users.id'))
 
