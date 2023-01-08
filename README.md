@@ -2,7 +2,7 @@
 
 Application where user can keep his bookmarks.
 
-Based on [FastAPI](https://github.com/tiangolo/fastapi), uses [PostgreSQL](https://www.postgresql.org/).
+Based on [FastAPI](https://github.com/tiangolo/fastapi), uses [PostgreSQL](https://www.postgresql.org/) and [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy).
 
 Frontend runs here on [GitHub Pages](https://dreamer20.github.io/bookmarks_frontend/).
 
