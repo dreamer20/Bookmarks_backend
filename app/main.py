@@ -7,7 +7,8 @@ from datetime import timedelta
 from .utils import (
     get_website_title,
     is_valid_url,
-    get_website_icon_url
+    get_website_icon_url,
+    generate_website_thumbnail
 )
 from . import crud, schemas
 from .models import Base, User
@@ -110,6 +111,7 @@ async def add_bookmark(
         raise HTTPException(status_code=400, detail='Url must begin with "http(s)://".')
     bookmark.title = get_website_title(bookmark.url)
     bookmark.icon_url = get_website_icon_url(bookmark.url)
+    bookmark.thumbnail = generate_website_thumbnail(bookmark.url)
     return crud.create_bookmark(db, bookmark, current_user.id)
 
 

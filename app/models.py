@@ -22,6 +22,7 @@ class Bookmark(Base):
     url = Column(String, nullable=False, index=True)
     tags = Column(String, index=True)
     icon_url = Column(String)
+    thumbnail = Column(String)
     owner_id = Column(Integer, ForeignKey('users.id'))
 
     owner = relationship('User', back_populates='bookmarks')
