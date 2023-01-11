@@ -12,8 +12,9 @@ SCREENSHOTLAYER_API_URL = 'http://api.screenshotlayer.com/api/capture'
 
 
 def get_website_title(url):
+    headers = {'User-Agent': 'Mozilla/5.0'}
     try:
-        response = requests.get(url)
+        response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
         title = soup.title.string
     except Exception:
