@@ -104,11 +104,12 @@ async def get_bookmarks(
 
 @app.post('/bookmarks/add')
 async def add_bookmark(
-        bookmark: schemas.BookmarkCreate,
+        link: schemas.Link,
         current_user: User = Depends(get_current_user),
         db: Session = Depends(get_db)):
-    if is_valid_url(bookmark.url) is False:
+    if is_valid_url(link.url) is False:
         raise HTTPException(status_code=400, detail='Url must begin with "http(s)://".')
+    bookmark = schemas.BookmarkCreate(**link.dict())
     bookmark.title = get_website_title(bookmark.url)
     bookmark.icon_url = get_website_icon_url(bookmark.url)
     bookmark.thumbnail = generate_website_thumbnail(bookmark.url)

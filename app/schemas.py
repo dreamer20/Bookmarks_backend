@@ -1,14 +1,18 @@
 from typing import List, Union
-
 from pydantic import BaseModel
 
 
-class BookmarkBase(BaseModel):
-    title: Union[str, None] = None
-    icon_url: Union[str, None] = None
-    thumbnail: Union[str, None] = None
+class Link(BaseModel):
     url: str
     tags: Union[str, None] = None
+
+
+class BookmarkBase(BaseModel):
+    url: str
+    title: str
+    tags: Union[str, None] = None
+    icon_url: Union[str, None] = None
+    thumbnail: Union[str, None] = None
 
 
 class BookmarkCreate(BookmarkBase):
@@ -16,6 +20,7 @@ class BookmarkCreate(BookmarkBase):
 
 
 class Bookmark(BookmarkBase):
+
     id: int
     owner_id: int
 
