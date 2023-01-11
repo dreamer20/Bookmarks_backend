@@ -1,5 +1,6 @@
 import pytest
 import requests
+from app import main
 
 
 class MockResponse:
@@ -31,6 +32,14 @@ def mock_response(monkeypatch):
         return MockResponse()
 
     monkeypatch.setattr(requests, 'get', get_mock)
+
+
+@pytest.fixture
+def mock_thumbnail_url(monkeypatch):
+    def get_mock(*args, **kwargs):
+        return 'http://someurl.com'
+
+    monkeypatch.setattr(main, 'generate_website_thumbnail', get_mock)
 
 
 def test_login(client):
@@ -102,8 +111,7 @@ def test_profile(client, auth):
     assert data['username'] == 'test'
 
 
-@pytest.mark.add
-def test_add_bookmark(client, auth, mock_response):
+def test_add_bookmark(client, auth, mock_response, mock_thumbnail_url):
     """ Should add new bookmark to the user's bookmark list """
     bookmark = {'url': 'http://testurl.com', 'tags': 'tag1,tag2'}
     auth.login()
@@ -116,6 +124,7 @@ def test_add_bookmark(client, auth, mock_response):
     data = response.json()
     assert data['title'] == 'Vite App'
     assert data['tags'] == 'tag1,tag2'
+    assert data['thumbnail'] == 'http://someurl.com'
 
 
 def test_get_bookmarks(client, auth):
