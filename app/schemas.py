@@ -9,7 +9,7 @@ class Link(BaseModel):
 
 class BookmarkBase(BaseModel):
     url: str
-    title: str
+    title: Union[str, None] = None
     tags: Union[str, None] = None
     icon_url: Union[str, None] = None
     thumbnail: Union[str, None] = None
