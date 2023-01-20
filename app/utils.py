@@ -1,6 +1,6 @@
 import requests
 import re
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 from io import BytesIO
 from PIL import Image
 from filestack import Client
@@ -13,9 +13,10 @@ SCREENSHOTLAYER_API_URL = 'http://api.screenshotlayer.com/api/capture'
 
 def get_website_title(url):
     headers = {'User-Agent': 'Mozilla/5.0'}
+    only_head = SoupStrainer('head')
     try:
         response = requests.get(url, headers=headers)
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, 'html.parser', parse_only=only_head)
         title = soup.title.string
     except Exception:
         title = 'Bookmark Title'
