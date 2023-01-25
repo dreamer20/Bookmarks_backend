@@ -102,7 +102,7 @@ async def get_bookmarks(
     return current_user.bookmarks
 
 
-@app.post('/bookmarks/add')
+@app.post('/bookmarks')
 async def add_bookmark(
         link: schemas.Link,
         current_user: User = Depends(get_current_user),

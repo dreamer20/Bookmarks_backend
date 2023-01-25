@@ -116,7 +116,7 @@ def test_add_bookmark(client, auth, mock_response, mock_thumbnail_url):
     bookmark = {'url': 'http://testurl.com', 'tags': 'tag1,tag2'}
     auth.login()
     response = client.post(
-        '/bookmarks/add',
+        '/bookmarks',
         json=bookmark,
         headers=auth.authHeader
     )
