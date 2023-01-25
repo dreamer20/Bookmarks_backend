@@ -1,14 +1,15 @@
 import requests
 import re
+import os
 from bs4 import BeautifulSoup, SoupStrainer
 from io import BytesIO
 from PIL import Image
 from filestack import Client
 
 
-FILESTACK_API_KEY = 'Abnq7E6rVRaiHd14Jibe8z'
-SCREENSHOTLAYER_API_KEY = '82f593d3be17d04f8e66b36f10e07dba'
-SCREENSHOTLAYER_API_URL = 'https://api.savepage.io/v1/'
+FILESTACK_API_KEY = os.getenv('FILESTACK_API_KEY')
+SAVEPAGE_API_KEY = os.getenv('SAVEPAGE_API_KEY')
+SAVEPAGE_API_URL = 'https://api.savepage.io/v1/'
 
 
 def get_website_title(url):
@@ -40,11 +41,11 @@ def is_valid_url(url):
 
 def create_website_thumbnail_image(url):
     payload = {
-        'key': SCREENSHOTLAYER_API_KEY,
+        'key': SAVEPAGE_API_KEY,
         'q': url
     }
 
-    response = requests.get(SCREENSHOTLAYER_API_URL, params=payload)
+    response = requests.get(SAVEPAGE_API_URL, params=payload)
     im = Image.open(BytesIO(response.content))
     im.thumbnail((250, 156))
     im.save('thumbnail.png')
